@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Cart;
 use App\Product;
 use App\User;
+use Carbon\Carbon;
+use Cartalyst\Stripe\Api\Products;
 use Cartalyst\Stripe\Stripe;
+use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -32,10 +35,10 @@ class PageController extends Controller
     // show the products
     public function products()
     {
-        if (session('success')){
-            //toast(session('success'),'success','top-right')->hideCloseButton();
-            alert()->error('Delete Product','Are you sur to delete this product')->autoClose(100000);
-        }
+//        if (session('success')){
+//            //toast(session('success'),'success','top-right')->hideCloseButton();
+//            //alert()->error('Delete Product','Are you sur to delete this product')->autoClose(100000);
+//        }
         if (Auth::user()){
             $products = Product::where('user_id' , Auth::user()->id)->paginate(5);
         }else{
@@ -132,6 +135,24 @@ class PageController extends Controller
         session()->put('cart',$cart);
         // redirect to view
         return redirect()->back()->with('success','the product qty and price and total price updated with success');
+
+    }
+
+    // function to search by datePiker
+    public function search_product(Request $request){
+
+        // get the start date and end date from date picker
+        $start_DateTime = trim(explode('-', $request->get('datetimes'))[0]);
+        $end_DateTime = trim(explode('-', $request->get('datetimes'))[1]);
+        // convert date times requests to timestamp date format
+        $start = DateTime::createFromFormat('Y m d', strftime($start_DateTime))->format('Y-m-d');
+        $end = DateTime::createFromFormat('Y m d', strftime($end_DateTime))->format('Y-m-d');
+        // get the products where date created_at between $start_date and $end_date
+        $products_by_date = Product::where('created_at' , '>=' , $start)
+                                   ->where('created_at' , '<=' , $end)
+                                   ->get();
+        return view('research_product_by_date', ['products_by_date'=>$products_by_date , 'start'=>$start , 'end'=>$end]);
+
 
     }
 

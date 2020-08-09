@@ -37,5 +37,8 @@ Route::middleware(['auth'])->group(function () {
     // update price and quantity from shop cart
     Route::put('/update_product/{product}','PageController@update_product')->name('cart.update')->middleware('auth');
 
+    Route::get('/result_search_by_date','PageController@search_product')->name('search.product')->middleware('auth');
+    //hRoute::get('/result_search_by_date','PageController@search_product')->name('search.product')->middleware('auth');
+
 });
 

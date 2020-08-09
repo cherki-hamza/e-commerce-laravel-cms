@@ -28,11 +28,6 @@ class ProductsController extends Controller
       return redirect()->back()->with('success','the product add to cart with success');
     }
 
-    // remove product from cart
-    public function remove(){
-
-    }
-
     // show all product to cart v1
     public function shopCart(){
 

@@ -4,7 +4,9 @@ namespace App\Http\Controllers\backend;
 
 use App\Http\Controllers\Controller;
 use App\Order;
+use App\Product;
 use App\User;
+use Cartalyst\Stripe\Api\Products;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -22,7 +24,17 @@ class AdminController extends Controller
         if (session('success')){
             toast(session('success'),'success','top-right')->hideCloseButton();
         }
-        return view('backend.admin.index');
+        $products_count = Product::all()->count();
+        $users_count = User::all()->count();
+        $orders_count = Order::all()->count();
+        $trashed = Product::onlyTrashed()->count();
+        return view('backend.admin.index' ,
+                      [
+                          'products_count'=> $products_count,
+                          'users_count'   => $users_count,
+                          'orders_count'  => $orders_count,
+                          'trashed'=>$trashed,
+                      ]);
     }
 
     // show the all users

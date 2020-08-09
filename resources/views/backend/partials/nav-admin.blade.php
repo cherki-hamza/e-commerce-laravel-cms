@@ -27,7 +27,7 @@
             <!-- start customer -->
             <li class="treeview">
                 <a href="#">
-                    <i class="fa fa-product-hunt"></i><span>Products</span>
+                    <i class="fa fa-shopping-basket"></i><span>Products</span>
                     <span class="pull-right-container">
                      <i class="fa fa-angle-left pull-right"></i>
                      </span>
@@ -43,7 +43,7 @@
             <!-- start customer -->
             <li class="treeview">
                 <a href="#">
-                    <i class="fa fa-users"></i><span>Orders</span>
+                    <i class="fa fa-shopping-cart"></i><span>Orders</span>
                     <span class="pull-right-container">
                      <i class="fa fa-angle-left pull-right"></i>
                      </span>
@@ -60,7 +60,7 @@
             <!-- end not -->
 
             <li>
-                <a href="note.html">
+                <a href="">
                     <i class="fa fa-comment"></i> <span>Notes</span>
                     <span class="pull-right-container">
                      </span>
